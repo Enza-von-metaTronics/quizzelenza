@@ -31,12 +31,12 @@ const App = () => {
 
       <div className='__content'>
         <h1>hello quiz app</h1>
-        <p>come in and find out</p>
+        <p>come to find out<span>.</span></p>
       </div>
 
       <article className='article_wrapper'>
         {showScore ? (
-          <div>
+          <div className='div'>
             <div className='completed'>Completed !</div>
             <div className='score_section'>
               Your Score: {score}/{QuestionList.length}
@@ -57,8 +57,9 @@ const App = () => {
                     {QuestionList[currentQuestion].answerList.map((answerOption) => (
                       <li className='answer_list' key={uuidv4()}>
                         <button 
-                        className='answer_button'
-                        onClick={handleCorrectAnswer(answerOption.isCorrect)}
+                        disabled={clicked}
+                        className={`answer_button ${clicked && answerOption.isCorrect ? "correct" : "" }`}
+                        onClick={() => handleCorrectAnswer(answerOption.isCorrect)}
                         >{answerOption.answer}</button>
                       </li>
                     ))}
@@ -66,13 +67,17 @@ const App = () => {
                 </div>
                 <div className='next_button_box'>
                   <button className='next_button'
-                  onClick={handleNextQuestion}>
+                  onClick={handleNextQuestion}
+                  disabled={!clicked}>
                     Next
                   </button>
                 </div>
             </>
         )}
       </article>
+      <div className='mailme'>
+        <a href='/'>to top</a>
+      </div>
     </div>
   );
 }
